@@ -4,13 +4,18 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 public class CommentItemView extends LinearLayout {
 
-    private TextView tv_id,tv_time,tv_comment,tv_like;
+    private TextView tv_id;
+    private TextView tv_time;
+    private TextView tv_comment;
+    private TextView tv_like;
+    private RatingBar ratingBar;
 
     public CommentItemView(Context context) {
         super(context);
@@ -32,6 +37,7 @@ public class CommentItemView extends LinearLayout {
         tv_time = (TextView) findViewById(R.id.tv_time);
         tv_comment = (TextView) findViewById(R.id.tv_comment);
         tv_like = (TextView) findViewById(R.id.tv_like);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
     }
 
     public void setId(String id) {
@@ -45,5 +51,8 @@ public class CommentItemView extends LinearLayout {
     }
     public void setLikeCount(String like) {
         tv_like.setText(like);
+    }
+    public void setRatingBar(Float rating) {
+        ratingBar.setRating(rating);
     }
 }

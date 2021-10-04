@@ -1,16 +1,19 @@
 package com.leegyungjun.boostcourse_android;
 
 public class CommentItem {
+
     private String id;
     private String time;
     private String comment;
     private String likeCount;
+    private Float rating;
 
-    public CommentItem(String id, String time, String comment, String likeCount) {
+    public CommentItem(String id, String time, String comment, String likeCount, Float rating) {
         this.id = id;
         this.time = time;
         this.comment = comment;
         this.likeCount = likeCount;
+        this.rating = rating;
     }
 
     public String getId() {
@@ -45,6 +48,14 @@ public class CommentItem {
         this.likeCount = likeCount;
     }
 
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
         return "CommentItem{" +
@@ -52,6 +63,7 @@ public class CommentItem {
                 ", time='" + time + '\'' +
                 ", comment='" + comment + '\'' +
                 ", likeCount='" + likeCount + '\'' +
+                ", rating=" + rating +
                 '}';
     }
 }

@@ -9,7 +9,15 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.BoostCource_Android">
-        <activity android:name="com.leegyungjun.boostcourse_android.MainActivity"
+        <activity android:name=".CommentListActivity"
+            android:label="@string/comment_list"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".CommentWriteActivity"
+            android:label="@string/comment_write"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

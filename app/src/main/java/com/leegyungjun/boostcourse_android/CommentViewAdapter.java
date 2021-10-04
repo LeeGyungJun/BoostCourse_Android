@@ -37,6 +37,7 @@ public class CommentViewAdapter extends BaseAdapter {
         view.setTime(item.getTime());
         view.setComment(item.getComment());
         view.setLikeCount(item.getLikeCount());
+        view.setRatingBar(item.getRating());
         return view;
     }
 }
