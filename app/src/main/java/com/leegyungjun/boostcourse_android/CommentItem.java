@@ -1,69 +1,64 @@
 package com.leegyungjun.boostcourse_android;
 
-public class CommentItem {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private String id;
-    private String time;
-    private String comment;
-    private String likeCount;
-    private Float rating;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-    public CommentItem(String id, String time, String comment, String likeCount, Float rating) {
-        this.id = id;
-        this.time = time;
-        this.comment = comment;
-        this.likeCount = likeCount;
-        this.rating = rating;
+@Data
+@AllArgsConstructor
+@ToString
+public class CommentItem implements Parcelable {
+
+    @Getter @Setter private String id;
+    @Getter @Setter private String time;
+    @Getter @Setter private String comment;
+    @Getter @Setter private String likeCount;
+    @Getter @Setter private Float rating;
+
+    protected CommentItem(Parcel in) {
+        id = in.readString();
+        time = in.readString();
+        comment = in.readString();
+        likeCount = in.readString();
+        if (in.readByte() == 0) {
+            rating = null;
+        } else {
+            rating = in.readFloat();
+        }
     }
 
-    public String getId() {
-        return id;
-    }
+    public static final Creator<CommentItem> CREATOR = new Creator<CommentItem>() {
+        @Override
+        public CommentItem createFromParcel(Parcel in) {
+            return new CommentItem(in);
+        }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(String likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public Float getRating() {
-        return rating;
-    }
-
-    public void setRating(Float rating) {
-        this.rating = rating;
+        @Override
+        public CommentItem[] newArray(int size) {
+            return new CommentItem[size];
+        }
+    };
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public String toString() {
-        return "CommentItem{" +
-                "id='" + id + '\'' +
-                ", time='" + time + '\'' +
-                ", comment='" + comment + '\'' +
-                ", likeCount='" + likeCount + '\'' +
-                ", rating=" + rating +
-                '}';
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(time);
+        dest.writeString(comment);
+        dest.writeString(likeCount);
+        if (rating == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeFloat(rating);
+        }
     }
 }

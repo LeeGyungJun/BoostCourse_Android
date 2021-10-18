@@ -1,19 +1,23 @@
 package com.leegyungjun.boostcourse_android;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Fragment {
 
     private Button likeButton;
     private Button hateButton;
@@ -30,17 +34,17 @@ public class MainActivity extends AppCompatActivity {
     private int likeCount = 0;
     private int hateCount = 0;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_main, container, false);
 
-        likeButton = (Button) findViewById(R.id.likeButton);
-        likeCountText = (TextView) findViewById(R.id.likeCountText);
-        hateButton = (Button) findViewById(R.id.hateButton);
-        hateCountText = (TextView) findViewById(R.id.hateCountText);
-        comment_write = (LinearLayout) findViewById(R.id.comment_write);
-        comment_list = (androidx.appcompat.widget.AppCompatButton) findViewById(R.id.comment_list);
+        likeButton = (Button) rootView.findViewById(R.id.likeButton);
+        likeCountText = (TextView) rootView.findViewById(R.id.likeCountText);
+        hateButton = (Button) rootView.findViewById(R.id.hateButton);
+        hateCountText = (TextView) rootView.findViewById(R.id.hateCountText);
+        comment_write = (LinearLayout) rootView.findViewById(R.id.comment_write);
+        comment_list = (androidx.appcompat.widget.AppCompatButton) rootView.findViewById(R.id.comment_list);
 
         //좋아요 버튼
         likeButton.setOnClickListener(new View.OnClickListener() {
@@ -78,36 +82,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) rootView.findViewById(R.id.listView);
 
         adapter.addItem(new CommentItem("augustin**", "10분전", getResources().getString(R.string.comment), "0", 4.5f));
         adapter.addItem(new CommentItem("augustin**", "10분전", getResources().getString(R.string.comment), "0", 4.5f));
-//        adapter.addItem(new CommentItem("augustin**", "10분전", getResources().getString(R.string.comment), "0", 4.2f));
-//        adapter.addItem(new CommentItem("augustin**", "10분전", getResources().getString(R.string.comment), "0", 4.5f));
-//        adapter.addItem(new CommentItem("augustin**", "10분전", getResources().getString(R.string.comment), "0", 3.5f));
-//        adapter.addItem(new CommentItem("augustin**", "10분전", getResources().getString(R.string.comment), "0", 2.5f));
-//        adapter.addItem(new CommentItem("augustin**", "10분전", getResources().getString(R.string.comment), "0", 4.5f));
-//        adapter.addItem(new CommentItem("augustin**", "10분전", getResources().getString(R.string.comment), "0", 4.5f));
-//        adapter.addItem(new CommentItem("augustin11**", "10분전", getResources().getString(R.string.comment), "0", 4.5f));
 
         listView.setAdapter(adapter);
 
+
+        return rootView;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        if (requestCode == 101) {
-            if (intent != null) {
-                String contents = intent.getStringExtra("contents");
-                Float rating = intent.getFloatExtra("rating", 0f);
-
-                adapter.addItem(new CommentItem("augustin**", "10분전", contents, "0", rating));
-                listView.setAdapter(adapter);
-            }
-        }
-    }
 
     //좋아요 증가
     public void increLikeCount() {
@@ -147,13 +132,13 @@ public class MainActivity extends AppCompatActivity {
 
     //한줄평 작성하기
     public void showCommentWriteActivity() {
-        Intent intent = new Intent(getApplicationContext(), CommentWriteActivity.class);
+        Intent intent = new Intent(getActivity(), CommentWriteActivity.class);
         startActivityForResult(intent, 101);
     }
 
     //한줄평 모두보기
     public void showCommentListActivity() {
-        Intent intent = new Intent(getApplicationContext(), CommentListActivity.class);
+        Intent intent = new Intent(getActivity(), CommentListActivity.class);
         startActivityForResult(intent, 102);
     }
 }
