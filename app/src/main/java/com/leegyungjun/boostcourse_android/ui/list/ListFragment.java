@@ -1,4 +1,4 @@
-package com.leegyungjun.boostcourse_android.ui.home;
+package com.leegyungjun.boostcourse_android.ui.list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,9 +19,12 @@ import com.leegyungjun.boostcourse_android.Fragment2;
 import com.leegyungjun.boostcourse_android.Fragment3;
 import com.leegyungjun.boostcourse_android.PagerAdapter;
 import com.leegyungjun.boostcourse_android.R;
-import com.leegyungjun.boostcourse_android.databinding.FragmentHomeBinding;
+import com.leegyungjun.boostcourse_android.databinding.FragmentListBinding;
 
-public class HomeFragment extends Fragment {
+public class ListFragment extends Fragment {
+
+    private ListViewModel listViewModel;
+    private FragmentListBinding binding;
 
     private PagerAdapter adapter;
 
@@ -29,7 +32,7 @@ public class HomeFragment extends Fragment {
     private ViewPager2 pager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_list, container, false);
         pager = (ViewPager2) rootView.findViewById(R.id.pager);
         button = (Button) rootView.findViewById(R.id.button);
 
@@ -54,5 +57,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        binding = null;
     }
 }
