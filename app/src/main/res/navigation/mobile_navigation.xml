@@ -7,19 +7,26 @@
 
     <fragment
         android:id="@+id/nav_list"
-        android:name="com.leegyungjun.boostcourse_android.ui.list.ListFragment"
+        android:name="com.leegyungjun.boostcourse_android.ListFragment"
         android:label="@string/menu_list"
         tools:layout="@layout/fragment_list" />
 
     <fragment
         android:id="@+id/nav_review"
-        android:name="com.leegyungjun.boostcourse_android.ui.review.ReviewFragment"
+        android:name="com.leegyungjun.boostcourse_android.ReviewFragment"
         android:label="@string/menu_review"
         tools:layout="@layout/fragment_review" />
 
     <fragment
         android:id="@+id/nav_book"
-        android:name="com.leegyungjun.boostcourse_android.ui.book.BookFragment"
+        android:name="com.leegyungjun.boostcourse_android.BookFragment"
         android:label="@string/menu_book"
         tools:layout="@layout/fragment_book" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.leegyungjun.boostcourse_android.BookFragment"
+        android:label="@string/menu_book"
+        tools:layout="@layout/fragment_book" />
+
 </navigation>

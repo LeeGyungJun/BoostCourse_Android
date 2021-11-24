@@ -5,9 +5,6 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
-import com.leegyungjun.boostcourse_android.ui.book.BookFragment;
-import com.leegyungjun.boostcourse_android.ui.list.ListFragment;
-import com.leegyungjun.boostcourse_android.ui.review.ReviewFragment;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -30,6 +27,7 @@ public class MoviePagerActivity extends AppCompatActivity implements FragmentCal
 
 
         toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("영화 목록");
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
@@ -42,11 +40,21 @@ public class MoviePagerActivity extends AppCompatActivity implements FragmentCal
     }
 
     @Override
-    public void goMovieDetail() {
-        DetailFragment detailFragment = new DetailFragment();
+    public void goMovieDetail(int index) {
+        Fragment curFragment = null;
+        switch (index) {
+            case 1: {
+                curFragment = new DetailFragment();
+            }
+            case 2: { }
+            case 3: { }
+            case 4: { }
+            case 5: { }
+            case 6: { }
+        }
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, detailFragment).commit();
+        fragmentTransaction.replace(R.id.container, curFragment).commit();
         toolbar.setTitle("영화 상세");
     }
 
@@ -61,7 +69,6 @@ public class MoviePagerActivity extends AppCompatActivity implements FragmentCal
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Log.d(TAG, "123");
         Fragment curFragment = null;
         int id = item.getItemId();
         switch (id) {
@@ -76,6 +83,10 @@ public class MoviePagerActivity extends AppCompatActivity implements FragmentCal
             case R.id.nav_book:
                 toolbar.setTitle("예매하기");
                 curFragment = new BookFragment();
+                break;
+            case R.id.nav_settings:
+                toolbar.setTitle("사용자 설정");
+                curFragment = new SettingsFragment();
                 break;
         }
         assert curFragment != null;

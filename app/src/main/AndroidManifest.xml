@@ -28,10 +28,6 @@
             android:name=".CommentWriteActivity"
             android:label="@string/comment_write"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".DetailFragment"
-            android:screenOrientation="portrait">
-        </activity>
     </application>
 
 </manifest>

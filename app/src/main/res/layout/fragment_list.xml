@@ -2,24 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+    android:background="@drawable/main_background">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
         android:clipToPadding="false"
         android:clipChildren="false"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/button"
-        android:layout_alignParentLeft="true">
+        android:layout_height="match_parent">
 
     </androidx.viewpager2.widget.ViewPager2>
 

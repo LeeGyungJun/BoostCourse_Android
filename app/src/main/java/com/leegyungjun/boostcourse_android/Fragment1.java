@@ -37,7 +37,7 @@ public class Fragment1 extends Fragment {
             @Override
             public void onClick(View view) {
                 if (callback != null) {
-                    callback.goMovieDetail();
+                    callback.goMovieDetail(1);
                 }
             }
         });
