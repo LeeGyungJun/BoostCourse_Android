@@ -17,6 +17,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.leegyungjun.boostcourse_android.Fragment1;
 import com.leegyungjun.boostcourse_android.Fragment2;
 import com.leegyungjun.boostcourse_android.Fragment3;
+import com.leegyungjun.boostcourse_android.Fragment4;
+import com.leegyungjun.boostcourse_android.Fragment5;
+import com.leegyungjun.boostcourse_android.Fragment6;
 import com.leegyungjun.boostcourse_android.PagerAdapter;
 import com.leegyungjun.boostcourse_android.R;
 import com.leegyungjun.boostcourse_android.databinding.FragmentListBinding;
@@ -36,18 +39,26 @@ public class ListFragment extends Fragment {
         pager = (ViewPager2) rootView.findViewById(R.id.pager);
         button = (Button) rootView.findViewById(R.id.button);
 
-        pager.setOffscreenPageLimit(3); //캐싱해 놓는 프래그먼트 갯수 설정
 
-        adapter = new PagerAdapter(getChildFragmentManager(), getLifecycle());
+        adapter = new PagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
 
         Fragment1 fragment1 = new Fragment1();
-        adapter.addItem(fragment1);
-
         Fragment2 fragment2 = new Fragment2();
-        adapter.addItem(fragment2);
-
         Fragment3 fragment3 = new Fragment3();
+        Fragment4 fragment4 = new Fragment4();
+        Fragment5 fragment5 = new Fragment5();
+        Fragment6 fragment6 = new Fragment6();
+
+        adapter.addItem(fragment1);
+        adapter.addItem(fragment2);
         adapter.addItem(fragment3);
+        adapter.addItem(fragment4);
+        adapter.addItem(fragment5);
+        adapter.addItem(fragment6);
+
+        pager.setOffscreenPageLimit(6); //캐싱해 놓는 프래그먼트 갯수 설정
+        pager.setClipToPadding(false);
+        pager.setPadding(120,0,120,0);
 
         pager.setAdapter(adapter);
 

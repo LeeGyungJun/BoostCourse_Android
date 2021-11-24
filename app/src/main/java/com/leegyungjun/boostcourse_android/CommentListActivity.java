@@ -1,11 +1,13 @@
 package com.leegyungjun.boostcourse_android;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -22,6 +24,9 @@ public class CommentListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_list);
 
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
         listView = (ListView) findViewById(R.id.listView);
         comment_write = (LinearLayout) findViewById(R.id.comment_write);
 
@@ -69,5 +74,14 @@ public class CommentListActivity extends AppCompatActivity {
     public void showCommentWriteActivity() {
         Intent intent = new Intent(getApplicationContext(), CommentWriteActivity.class);
         startActivityForResult(intent, 101);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

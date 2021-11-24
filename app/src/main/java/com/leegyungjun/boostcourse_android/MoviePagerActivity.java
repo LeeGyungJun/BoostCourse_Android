@@ -1,28 +1,27 @@
 package com.leegyungjun.boostcourse_android;
 
 import android.os.Bundle;
-import android.view.View;
-import android.view.Menu;
+import android.util.Log;
+import android.view.MenuItem;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.leegyungjun.boostcourse_android.ui.book.BookFragment;
+import com.leegyungjun.boostcourse_android.ui.list.ListFragment;
+import com.leegyungjun.boostcourse_android.ui.review.ReviewFragment;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.leegyungjun.boostcourse_android.databinding.ActivityMoviePagerBinding;
-
-public class MoviePagerActivity extends AppCompatActivity implements FragmentCallback {
-    private AppBarConfiguration mAppBarConfiguration;
-    private Fragment nav_host_fragment_content_main;
+public class MoviePagerActivity extends AppCompatActivity implements FragmentCallback, NavigationView.OnNavigationItemSelectedListener {
+    private final static String TAG = "MoviePagerActivity";
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,41 +29,72 @@ public class MoviePagerActivity extends AppCompatActivity implements FragmentCal
         setContentView(R.layout.activity_movie_pager);
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
         NavigationView navigationView = findViewById(R.id.nav_view);
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_list, R.id.nav_review, R.id.nav_book)
-                .setDrawerLayout(drawer)
-                .build();
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.movie_pager, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void goMovieDetail() {
-        MainActivity mainActivity = new MainActivity();
+        DetailFragment detailFragment = new DetailFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, mainActivity).commit();
+        fragmentTransaction.replace(R.id.container, detailFragment).commit();
+        toolbar.setTitle("영화 상세");
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            drawer.openDrawer(GravityCompat.START);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        Log.d(TAG, "123");
+        Fragment curFragment = null;
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.nav_list:
+                toolbar.setTitle("영화 목록");
+                curFragment = new ListFragment();
+                break;
+            case R.id.nav_review:
+                toolbar.setTitle("영화 API");
+                curFragment = new ReviewFragment();
+                break;
+            case R.id.nav_book:
+                toolbar.setTitle("예매하기");
+                curFragment = new BookFragment();
+                break;
+        }
+        assert curFragment != null;
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
 
 }

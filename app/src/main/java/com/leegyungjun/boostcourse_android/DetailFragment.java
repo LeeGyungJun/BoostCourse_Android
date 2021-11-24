@@ -3,6 +3,7 @@ package com.leegyungjun.boostcourse_android;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -17,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Fragment {
+public class DetailFragment extends Fragment {
 
     private Button likeButton;
     private Button hateButton;

@@ -43,6 +43,7 @@ public class CommentItem implements Parcelable {
             return new CommentItem[size];
         }
     };
+
     @Override
     public int describeContents() {
         return 0;
